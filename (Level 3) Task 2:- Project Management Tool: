@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Project Management Tool</h1>
+    <p>Manage your projects efficiently</p>
+  </header>
+
+  <!-- Project Form -->
+  <section class="form-section">
+    <input type="text" id="projectName" placeholder="Project Name">
+    <input type="text" id="taskName" placeholder="Task Name">
+    <input type="date" id="deadline">
+    <button onclick="addTask()">Add Task</button>
+  </section>
+
+  <!-- Project List -->
+  <section class="projects" id="projectList">
+    <!-- Tasks will appear here -->
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      &copy; 2026 Project Management Tool <br>
+      Developed by Mathiprasanth
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+jAVA Script
+
+function addTask() {
+  const projectName = document.getElementById("projectName").value;
+  const taskName = document.getElementById("taskName").value;
+  const deadline = document.getElementById("deadline").value;
+
+  if (projectName === "" || taskName === "" || deadline === "") {
+    alert("Please fill all fields");
+    return;
+  }
+
+  const projectList = document.getElementById("projectList");
+
+  const taskDiv = document.createElement("div");
+  taskDiv.className = "task";
+
+  taskDiv.innerHTML = `
+    <div>
+      <h3>${projectName}</h3>
+      <p>Task: ${taskName}</p>
+      <p>Deadline: ${deadline}</p>
+    </div>
+    <div>
+      <button class="complete-btn" onclick="markComplete(this)">Complete</button>
+      <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+    </div>
+  `;
+
+  projectList.appendChild(taskDiv);
+
+  document.getElementById("projectName").value = "";
+  document.getElementById("taskName").value = "";
+  document.getElementById("deadline").value = "";
+}
+
+function markComplete(button) {
+  const task = button.closest(".task");
+  task.classList.toggle("completed");
+}
+
+function deleteTask(button) {
+  const task = button.closest(".task");
+  task.remove();
+}
+
+CSS
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f4;
+}
+
+/* Header */
+header {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 30px;
+}
+
+/* Form */
+.form-section {
+  background: #fff;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.form-section input {
+  padding: 10px;
+  width: 200px;
+}
+
+.form-section button {
+  padding: 10px 20px;
+  background: #ff6600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Projects */
+.projects {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.task {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task.completed {
+  background: #d4edda;
+  text-decoration: line-through;
+}
+
+.task button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.complete-btn {
+  background: #28a745;
+  color: #fff;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}
