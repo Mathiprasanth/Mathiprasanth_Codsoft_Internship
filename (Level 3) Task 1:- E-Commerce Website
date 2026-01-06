@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>My E-Commerce Store</h1>
+    <div class="cart">
+      🛒 Cart: <span id="cart-count">0</span>
+    </div>
+  </header>
+
+  <!-- Products -->
+  <section class="products">
+    <div class="product">
+      <h3>Laptop</h3>
+      <p>₹50,000</p>
+      <button onclick="addToCart(50000)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <h3>Smartphone</h3>
+      <p>₹20,000</p>
+      <button onclick="addToCart(20000)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <h3>Headphones</h3>
+      <p>₹2,000</p>
+      <button onclick="addToCart(2000)">Add to Cart</button>
+    </div>
+  </section>
+
+  <!-- Cart Section -->
+  <section class="cart-section">
+    <h2>Cart Summary</h2>
+    <p>Total Items: <span id="items">0</span></p>
+    <p>Total Price: ₹<span id="total">0</span></p>
+    <button onclick="checkout()">Checkout</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      &copy; 2026 E-Commerce Website <br>
+      Developed by Mathiprasanth
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+Java Script
+
+let cartCount = 0;
+let totalPrice = 0;
+
+function addToCart(price) {
+  cartCount++;
+  totalPrice += price;
+
+  document.getElementById("cart-count").innerText = cartCount;
+  document.getElementById("items").innerText = cartCount;
+  document.getElementById("total").innerText = totalPrice;
+}
+
+function checkout() {
+  if (cartCount === 0) {
+    alert("Your cart is empty!");
+  } else {
+    alert("Checkout successful!\nTotal Amount: ₹" + totalPrice);
+    cartCount = 0;
+    totalPrice = 0;
+
+    document.getElementById("cart-count").innerText = 0;
+    document.getElementById("items").innerText = 0;
+    document.getElementById("total").innerText = 0;
+  }
+}
+
+css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f4;
+}
+
+/* Header */
+header {
+  background: #333;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Products */
+.products {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+}
+
+.product {
+  background: white;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.product button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #ff6600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.product button:hover {
+  background: #e65c00;
+}
+
+/* Cart */
+.cart-section {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.cart-section button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
