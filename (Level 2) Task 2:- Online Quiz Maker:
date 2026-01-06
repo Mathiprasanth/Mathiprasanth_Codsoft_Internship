@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Quiz Maker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>Online Quiz</h1>
+
+    <div id="quiz">
+      <h2 id="question">Question text</h2>
+
+      <div class="options">
+        <button class="option" onclick="selectAnswer(0)"></button>
+        <button class="option" onclick="selectAnswer(1)"></button>
+        <button class="option" onclick="selectAnswer(2)"></button>
+        <button class="option" onclick="selectAnswer(3)"></button>
+      </div>
+
+      <button id="nextBtn" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div id="result" class="hidden">
+      <h2>Your Score</h2>
+      <p id="score"></p>
+      <button onclick="restartQuiz()">Restart Quiz</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+Java Script
+
+const quizData = [
+  {
+    question: "What does HTML stand for?",
+    options: [
+      "Hyper Text Markup Language",
+      "High Text Machine Language",
+      "Hyperlinks and Text Markup Language",
+      "Home Tool Markup Language"
+    ],
+    correct: 0
+  },
+  {
+    question: "Which language is used for styling web pages?",
+    options: ["HTML", "JQuery", "CSS", "XML"],
+    correct: 2
+  },
+  {
+    question: "Which is not a programming language?",
+    options: ["Python", "Java", "HTML", "C++"],
+    correct: 2
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selectedAnswer = null;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementsByClassName("option");
+const quizEl = document.getElementById("quiz");
+const resultEl = document.getElementById("result");
+const scoreEl = document.getElementById("score");
+
+loadQuestion();
+
+function loadQuestion() {
+  selectedAnswer = null;
+  questionEl.innerText = quizData[currentQuestion].question;
+
+  for (let i = 0; i < optionsEl.length; i++) {
+    optionsEl[i].innerText = quizData[currentQuestion].options[i];
+    optionsEl[i].style.background = "#f4f4f4";
+  }
+}
+
+function selectAnswer(index) {
+  selectedAnswer = index;
+
+  for (let i = 0; i < optionsEl.length; i++) {
+    optionsEl[i].style.background = "#f4f4f4";
+  }
+  optionsEl[index].style.background = "#c8e6c9";
+}
+
+function nextQuestion() {
+  if (selectedAnswer === null) {
+    alert("Please select an answer!");
+    return;
+  }
+
+  if (selectedAnswer === quizData[currentQuestion].correct) {
+    score++;
+  }
+
+  currentQuestion++;
+
+  if (currentQuestion < quizData.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  quizEl.classList.add("hidden");
+  resultEl.classList.remove("hidden");
+  scoreEl.innerText = `${score} / ${quizData.length}`;
+}
+
+function restartQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  quizEl.classList.remove("hidden");
+  resultEl.classList.add("hidden");
+  loadQuestion();
+}
+
+CSS 
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.quiz-container {
+  background: #fff;
+  padding: 25px;
+  width: 350px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.quiz-container h1 {
+  margin-bottom: 20px;
+}
+
+#question {
+  margin-bottom: 15px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  background: #f4f4f4;
+  border: none;
+  margin: 5px 0;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.option:hover {
+  background: #ddd;
+}
+
+#nextBtn {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background: #ff6600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
